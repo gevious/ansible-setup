@@ -1,0 +1,4 @@
+myhosts:
+  hosts:
+    work_machine:
+      ansible_host: 10.0.5.27
