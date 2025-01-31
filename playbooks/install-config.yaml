@@ -1,0 +1,22 @@
+- name: Install local configuration
+  hosts: myhosts
+  vars:
+    home_dir: "~"
+    workspace_dir: "w"
+    config_dir: ".config"
+  tasks:
+    - name: Create .config dir
+      ansible.builtin.shell: |
+        if [ ! -d {{ home_dir }}/{{ config_dir }} ]; then
+          mkdir {{ home_dir }}/{{ config_dir }}
+        fi
+    - name: Neovim
+      ansible.builtin.shell: |
+        mkdir -p {{ home_dir }}/{{ workspace_dir }}
+        cd {{ home_dir }}/{{ workspace_dir }}
+        git clone git@github.com:gevious/nvim-config.git
+        cd {{ home_dir }}/{{ config_dir}}
+        unlink ./nvim
+        mv -f nvim nvim-old
+        ln -s {{ home_dir }}/{{ workspace_dir }}/nvim-config nvim
+

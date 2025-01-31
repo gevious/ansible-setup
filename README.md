@@ -18,6 +18,14 @@ This repository contains the ansible setup for my personal workspace(s).
 ```
 ansible-playbook -i inventory.yaml --ask-become-pass playbooks/install-packages.yaml
 ```
+## Install config
+```
+ansible-playbook -i inventory.yaml playbooks/install-config.yaml
+```
+
+# TODO
+- add ability to detect between ubuntu and arch system
+- set up configuration files for various services (like i3, neovim etc)
 
 
 
