@@ -1,0 +1,57 @@
+- name: (Ubuntu) Install and upgrade packages
+  hosts: myhosts
+  tasks:
+    - name: Update apt cache
+      become: true
+      apt:
+        autoclean: true
+        autoremove: true
+        clean: true
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+    - name: Upgrading packages
+      become: true
+      apt:
+        upgrade: full
+    - name: Install terminal libraries
+      become: true
+      apt:
+        name:
+          - kitty
+          - zsh
+          - pass
+        state: present
+    - name: Install fonts
+      become: true
+      apt:
+        name:
+          #- fonts-cantarell
+          #- ttf-fira-code
+          - fonts-powerline
+          - powerline
+          - fonts-noto-color-emoji
+        state: present
+    - name: Install bluetooth tools
+      become: true
+      apt:
+        name:
+          - bluez
+          - blueman
+        state: present
+    - name: Install audio tools
+      become: true
+      apt:
+        name:
+          - pulseaudio
+          - pulseaudio-module-bluetooth
+          - pulseaudio-utils
+          - pavucontrol
+          - pipewire
+          - pipewire-pulse
+        state: present
+    - name: Startup services
+      become: true
+      ansible.builtin.systemd_service:
+        name: bluetooth.service
+        enabled: true
+        state: started
