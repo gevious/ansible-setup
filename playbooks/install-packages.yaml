@@ -20,6 +20,7 @@
           - kitty
           - zsh
           - pass
+          - tmux
         state: present
     - name: Install fonts
       become: true
@@ -30,6 +31,25 @@
           - fonts-powerline
           - powerline
           - fonts-noto-color-emoji
+        state: present
+    - name: Install Desktop applications
+      become: true
+      apt:
+        name:
+          - google-chrome-stable
+          - rofi # window switcher
+          - teams # Microsoft teams
+    - name: Install Wayland graphical environment
+      become: true
+      apt:
+        name:
+          - xwayland
+          - sway
+          - sway-notification-center
+          - nitrogen # wallpaper manager
+          - wlr-randr # wayland screen position organizer
+          - wl-clipboard # wayland clipboard
+          # - xremap # TODO: install manually. needed for office (wayland xmodmap)
         state: present
     - name: Install bluetooth tools
       become: true
